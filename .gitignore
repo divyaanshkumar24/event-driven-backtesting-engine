@@ -15,9 +15,13 @@ data_cache/
 bundles/*
 !bundles/.gitkeep
 
-# viewer (Next.js, later phase)
+# viewer (Next.js)
 viewer/node_modules/
 viewer/.next/
 viewer/out/
+viewer/next-env.d.ts
+# copied/derived from bundles/ at export time, not source
+viewer/public/data/*
+!viewer/public/data/.gitkeep
 
 .DS_Store

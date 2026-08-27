@@ -15,6 +15,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 from engine.audit.bias_audit import build_bias_audit
+from engine.bundle.viewer_export import export_bundle_for_viewer
 from engine.bundle.writer import generate_run_id, hash_price_data, write_bundle
 from engine.costs.model import ZERO_COST_MODEL, CommissionModel, CostModel, ImpactModel, SpreadModel
 from engine.data.loader import YFinanceLoader
@@ -130,6 +131,18 @@ def main() -> Path:
     )
 
     print(f"\nBundle written to {bundle_dir}")
+
+    viewer_data_dir = export_bundle_for_viewer(
+        bundle_dir,
+        store,
+        SYMBOL,
+        result.stitched_equity_curve,
+        gross_curve,
+        INITIAL_CASH,
+        REPO_ROOT / "viewer" / "public" / "data" / "current",
+    )
+    print(f"Viewer data written to {viewer_data_dir}")
+
     return bundle_dir
 
 
