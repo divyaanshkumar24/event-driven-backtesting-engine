@@ -49,6 +49,33 @@ def stitch_oos_curves(portfolios: list[Portfolio], initial_cash: float) -> list[
     return stitched
 
 
+def rerun_oos_with_cost_model(
+    store: DataStore,
+    symbol: str,
+    strategy_factory: StrategyFactory,
+    result: WalkForwardResult,
+    cost_model: CostModel,
+    initial_cash: float = 100_000.0,
+) -> list[tuple]:
+    """Re-runs each fold's OOS window with the SAME chosen params but a
+    different cost model (e.g. zero-cost, for a gross comparison), and
+    stitches the result the same way as the original run.
+    """
+    portfolios = [
+        run_window_backtest(
+            store,
+            symbol,
+            strategy_factory(fr.best_params),
+            fr.fold.test_start,
+            fr.fold.test_end,
+            cost_model,
+            initial_cash,
+        )
+        for fr in result.folds
+    ]
+    return stitch_oos_curves(portfolios, initial_cash)
+
+
 def run_walk_forward(
     store: DataStore,
     symbol: str,

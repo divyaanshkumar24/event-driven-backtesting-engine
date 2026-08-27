@@ -63,6 +63,8 @@ class DataStore:
     """
 
     def __init__(self, path: str | Path = ":memory:"):
+        if path != ":memory:":
+            Path(path).parent.mkdir(parents=True, exist_ok=True)
         self._conn = duckdb.connect(str(path))
         self._conn.execute(_RAW_PRICES_SCHEMA)
         self._conn.execute(_ADJUSTMENT_FACTORS_SCHEMA)

@@ -10,8 +10,8 @@ from engine.audit.stats import deflated_sharpe_ratio, pbo_cscv
 from engine.costs.model import ZERO_COST_MODEL, CommissionModel, CostModel, ImpactModel, SpreadModel
 from engine.data.store import DataStore
 from engine.metrics.core import annualized_return, equity_curve_returns, sharpe_ratio, turnover
-from engine.walkforward.optimizer import StrategyFactory, run_window_backtest
-from engine.walkforward.runner import WalkForwardResult, stitch_oos_curves
+from engine.walkforward.optimizer import StrategyFactory
+from engine.walkforward.runner import WalkForwardResult, rerun_oos_with_cost_model
 
 
 def _field(status: str, value, explanation: str) -> dict:
@@ -40,19 +40,9 @@ def _net_annualized_return(
     cost_model: CostModel,
     initial_cash: float,
 ) -> float:
-    portfolios = [
-        run_window_backtest(
-            store,
-            symbol,
-            strategy_factory(fr.best_params),
-            fr.fold.test_start,
-            fr.fold.test_end,
-            cost_model,
-            initial_cash,
-        )
-        for fr in result.folds
-    ]
-    curve = stitch_oos_curves(portfolios, initial_cash)
+    curve = rerun_oos_with_cost_model(
+        store, symbol, strategy_factory, result, cost_model, initial_cash
+    )
     return annualized_return(equity_curve_returns(curve))
 
 
@@ -80,19 +70,9 @@ def _find_zero_crossing_multiple(
 
 
 def _cost_analysis(store, symbol, strategy_factory, result, cost_model, initial_cash) -> dict:
-    gross_portfolios = [
-        run_window_backtest(
-            store,
-            symbol,
-            strategy_factory(fr.best_params),
-            fr.fold.test_start,
-            fr.fold.test_end,
-            ZERO_COST_MODEL,
-            initial_cash,
-        )
-        for fr in result.folds
-    ]
-    gross_curve = stitch_oos_curves(gross_portfolios, initial_cash)
+    gross_curve = rerun_oos_with_cost_model(
+        store, symbol, strategy_factory, result, ZERO_COST_MODEL, initial_cash
+    )
     gross_returns = equity_curve_returns(gross_curve)
     net_returns = equity_curve_returns(result.stitched_equity_curve)
 
