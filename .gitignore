@@ -1,0 +1,23 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+*.egg-info/
+build/
+dist/
+
+# local data cache
+data_cache/
+*.duckdb
+
+# bundle outputs (generated artifacts, not source)
+bundles/*
+!bundles/.gitkeep
+
+# viewer (Next.js, later phase)
+viewer/node_modules/
+viewer/.next/
+viewer/out/
+
+.DS_Store
