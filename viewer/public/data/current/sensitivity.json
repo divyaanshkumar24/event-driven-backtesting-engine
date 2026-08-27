@@ -1,0 +1,93 @@
+{
+  "param_grid": [
+    {
+      "params": {
+        "short_window": 5,
+        "long_window": 50
+      },
+      "sharpe": 1.234628853047558
+    },
+    {
+      "params": {
+        "short_window": 5,
+        "long_window": 100
+      },
+      "sharpe": 1.5021754068465507
+    },
+    {
+      "params": {
+        "short_window": 5,
+        "long_window": 150
+      },
+      "sharpe": 1.183557376277992
+    },
+    {
+      "params": {
+        "short_window": 10,
+        "long_window": 50
+      },
+      "sharpe": 1.1743822129886152
+    },
+    {
+      "params": {
+        "short_window": 10,
+        "long_window": 100
+      },
+      "sharpe": 1.4127565168350382
+    },
+    {
+      "params": {
+        "short_window": 10,
+        "long_window": 150
+      },
+      "sharpe": 1.0024964332749557
+    },
+    {
+      "params": {
+        "short_window": 20,
+        "long_window": 50
+      },
+      "sharpe": 1.2542871756080634
+    },
+    {
+      "params": {
+        "short_window": 20,
+        "long_window": 100
+      },
+      "sharpe": 1.2660100948715862
+    },
+    {
+      "params": {
+        "short_window": 20,
+        "long_window": 150
+      },
+      "sharpe": 1.0037122997510273
+    }
+  ],
+  "rebalance_frequency": [
+    {
+      "every_n_bars": 1,
+      "sharpe": 1.234628853047558
+    },
+    {
+      "every_n_bars": 3,
+      "sharpe": 1.3636526266318545
+    },
+    {
+      "every_n_bars": 5,
+      "sharpe": 1.6204037026941502
+    },
+    {
+      "every_n_bars": 10,
+      "sharpe": 0.666309420012797
+    },
+    {
+      "every_n_bars": 21,
+      "sharpe": 0.0
+    }
+  ],
+  "reference_params_used_for_rebalance_sweep": {
+    "short_window": 5,
+    "long_window": 50
+  }
+}

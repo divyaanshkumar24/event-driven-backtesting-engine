@@ -1,0 +1,76 @@
+{
+  "look_ahead_violations": {
+    "status": "pass",
+    "value": 0,
+    "explanation": "Not a post-hoc scan: DataHandler.as_of()/LookaheadError and the execution handler's SameBarFillError make a look-ahead or same-bar fill raise and abort the run rather than appear silently in output, so a completed run implies zero violations."
+  },
+  "fill_timing_assumption": {
+    "status": "pass",
+    "value": "next-bar-open",
+    "explanation": "Decisions use data as of the close of bar t; orders fill at the open of the next bar for that symbol. Same-bar fills are structurally rejected."
+  },
+  "survivorship_posture": {
+    "status": "flagged",
+    "value": "survivorship-limited",
+    "explanation": "No point-in-time delisted-universe feed is wired up yet (the data source is yfinance, which only serves currently-listed history). Per the fixed spec, an explicit survivorship-limited flag is reported instead of a with/without-delisted Sharpe delta."
+  },
+  "cost_analysis": {
+    "status": "pass",
+    "value": {
+      "gross_sharpe": 0.9342035491663111,
+      "net_sharpe": 0.8878010901173876,
+      "annualized_cost_drag": 0.005598349410910641,
+      "breakeven_cost_multiple": 18.429931640625
+    },
+    "explanation": "gross_sharpe/net_sharpe use the same OOS windows and chosen params, differing only in cost model (zero-cost vs the supplied CostModel). breakeven_cost_multiple is the smallest multiplier on all cost components (commission, spread, impact) at which annualized net return crosses zero; null means it stayed positive up to a 1024x cost multiple."
+  },
+  "turnover": {
+    "status": "pass",
+    "value": 23.024262926388353,
+    "explanation": "Total traded notional across all OOS fold trades, as a multiple of average OOS equity."
+  },
+  "overfitting_analysis": {
+    "status": "warn",
+    "value": {
+      "n_param_combos_tested_per_fold": 9,
+      "n_folds": 5,
+      "deflated_sharpe": {
+        "dsr": 0.0,
+        "observed_sharpe": 0.05592621186053931,
+        "benchmark_sharpe_under_null": 1.607556026614282,
+        "n_trials": 45,
+        "n_obs": 629
+      },
+      "pbo": {
+        "pbo": 0.5285714285714286,
+        "n_combinations": 70,
+        "mean_logit": -0.04378773892751664,
+        "n_splits": 8
+      }
+    },
+    "explanation": "deflated_sharpe corrects the stitched OOS Sharpe for having tried 45 param combinations pooled across all folds (a conservative count of the full multiple-testing exposure). pbo is computed via CSCV on the last fold's per-combo in-sample return matrix; null if there weren't enough combos/bars."
+  },
+  "is_oos_degradation": {
+    "status": "pass",
+    "value": {
+      "is_sharpe_avg": 1.6605204758549477,
+      "oos_sharpe": 0.8878010901173876,
+      "degradation": 0.77271938573756
+    },
+    "explanation": "is_sharpe_avg is the mean per-fold in-sample Sharpe of the selected params; oos_sharpe is the stitched out-of-sample Sharpe. A large positive degradation suggests the in-sample selection process found noise rather than a robust edge."
+  },
+  "regime_breakdown": {
+    "status": "pass",
+    "value": {
+      "low_vol": 2.9581603838491843,
+      "mid_vol": 0.4826539449324526,
+      "high_vol": -0.14614455481656546
+    },
+    "explanation": "Per-regime OOS Sharpe, with regimes defined as terciles of the underlying's trailing 20-bar realized volatility over the stitched OOS period."
+  },
+  "capacity": {
+    "status": "not_applicable",
+    "value": null,
+    "explanation": "AUM (scaling initial_cash, holding target_weight fixed) at which the strategy's own square-root market impact drives annualized net OOS return to zero. Null means capacity wasn't reached within a 1024x AUM scale."
+  }
+}

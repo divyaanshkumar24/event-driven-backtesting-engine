@@ -1,0 +1,70 @@
+<svg width="1200" height="300" viewBox="0 0 1200 300" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1220" />
+      <stop offset="100%" stop-color="#141c2e" />
+    </linearGradient>
+    <linearGradient id="nodeData" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#22d3ee" />
+      <stop offset="100%" stop-color="#0891b2" />
+    </linearGradient>
+    <linearGradient id="nodeWf" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#a78bfa" />
+      <stop offset="100%" stop-color="#7c3aed" />
+    </linearGradient>
+    <linearGradient id="nodeAudit" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fb923c" />
+      <stop offset="100%" stop-color="#ea580c" />
+    </linearGradient>
+    <linearGradient id="nodeBundle" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2dd4bf" />
+      <stop offset="100%" stop-color="#0d9488" />
+    </linearGradient>
+    <linearGradient id="nodeViewer" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4ade80" />
+      <stop offset="100%" stop-color="#16a34a" />
+    </linearGradient>
+    <pattern id="grid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M 28 0 L 0 0 0 28" fill="none" stroke="#ffffff" stroke-opacity="0.035" stroke-width="1"/>
+    </pattern>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#64748b" />
+    </marker>
+  </defs>
+
+  <rect width="1200" height="300" fill="url(#bg)" />
+  <rect width="1200" height="300" fill="url(#grid)" />
+
+  <text x="60" y="62" font-family="-apple-system,Helvetica,Arial,sans-serif" font-size="30" font-weight="700" fill="#f1f5f9">Event-Driven Backtesting Engine</text>
+  <text x="60" y="90" font-family="-apple-system,Helvetica,Arial,sans-serif" font-size="15" fill="#94a3b8">Look-ahead bias is structurally impossible — every result ships with a bias &amp; cost audit</text>
+
+  <!-- pipeline -->
+  <g font-family="-apple-system,Helvetica,Arial,sans-serif" font-size="13" font-weight="600" text-anchor="middle">
+    <line x1="150" y1="200" x2="270" y2="200" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)" />
+    <line x1="350" y1="200" x2="470" y2="200" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)" />
+    <line x1="550" y1="200" x2="670" y2="200" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)" />
+    <line x1="750" y1="200" x2="870" y2="200" stroke="#64748b" stroke-width="1.5" marker-end="url(#arrow)" />
+
+    <rect x="60" y="165" width="90" height="70" rx="10" fill="url(#nodeData)" />
+    <text x="105" y="196" fill="#03262b">as_of(t)</text>
+    <text x="105" y="213" fill="#03262b" font-size="11" font-weight="400">point-in-time</text>
+
+    <rect x="270" y="165" width="80" height="70" rx="10" fill="url(#nodeWf)" />
+    <text x="310" y="196" fill="#1e1033">walk</text>
+    <text x="310" y="212" fill="#1e1033">forward</text>
+
+    <rect x="470" y="165" width="80" height="70" rx="10" fill="url(#nodeAudit)" />
+    <text x="510" y="196" fill="#2b1102" font-size="12">bias</text>
+    <text x="510" y="212" fill="#2b1102" font-size="12">audit</text>
+
+    <rect x="670" y="165" width="80" height="70" rx="10" fill="url(#nodeBundle)" />
+    <text x="710" y="196" fill="#04211c">bundle</text>
+    <text x="710" y="212" fill="#04211c" font-size="11" font-weight="400">on disk</text>
+
+    <rect x="870" y="165" width="90" height="70" rx="10" fill="url(#nodeViewer)" />
+    <text x="915" y="196" fill="#052e13">viewer</text>
+    <text x="915" y="212" fill="#052e13" font-size="11" font-weight="400">static, no BE</text>
+  </g>
+
+  <text x="60" y="275" font-family="-apple-system,Helvetica,Arial,sans-serif" font-size="12" fill="#64748b">DuckDB · pandas/polars · pytest + hypothesis  —  Next.js 14 (static export) · Recharts</text>
+</svg>

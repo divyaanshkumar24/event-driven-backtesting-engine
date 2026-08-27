@@ -1,0 +1,29 @@
+{
+  "cagr": 0.0967372927762693,
+  "sharpe": 0.8878010901173876,
+  "sortino": 1.2136666297657466,
+  "calmar": 0.7731589482961706,
+  "max_drawdown": -0.1251195410587327,
+  "max_drawdown_duration": {
+    "bars": 292,
+    "censored": false
+  },
+  "hit_rate": 0.75,
+  "avg_win": 4624.604892288156,
+  "avg_loss": -2637.0229389613623,
+  "exposure": 0.973015873015873,
+  "turnover": 23.024262926388353,
+  "deflated_sharpe": {
+    "dsr": 0.0,
+    "observed_sharpe": 0.05592621186053931,
+    "benchmark_sharpe_under_null": 1.607556026614282,
+    "n_trials": 45,
+    "n_obs": 629
+  },
+  "gross_vs_net": {
+    "gross_cagr": 0.10233564218717994,
+    "net_cagr": 0.0967372927762693,
+    "gross_sharpe": 0.9342035491663111,
+    "net_sharpe": 0.8878010901173876
+  }
+}

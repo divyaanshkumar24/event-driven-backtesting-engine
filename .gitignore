@@ -20,8 +20,8 @@ viewer/node_modules/
 viewer/.next/
 viewer/out/
 viewer/next-env.d.ts
-# copied/derived from bundles/ at export time, not source
-viewer/public/data/*
-!viewer/public/data/.gitkeep
+# viewer/public/data/current/ is derived output (see engine/bundle/viewer_export.py),
+# but it's committed intentionally: it's the demo data the deployed viewer shows.
+# Regenerate with scripts/run_reference_backtest.py before redeploying to update it.
 
 .DS_Store
