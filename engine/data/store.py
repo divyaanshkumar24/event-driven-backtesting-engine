@@ -100,15 +100,29 @@ class DataStore:
             [symbol, t],
         ).df()
 
-    def query_all_raw_prices(self, symbols: Iterable[str]) -> pd.DataFrame:
+    def query_all_raw_prices(self, symbols: Iterable[str], start=None, end=None) -> pd.DataFrame:
+        """All bars for `symbols`, optionally bounded to knowledge_ts in
+        [start, end] (either bound may be omitted). Used both for the full
+        replay stream and for a walk-forward fold's restricted train/test
+        windows.
+        """
         symbols = list(symbols)
         if not symbols:
             return pd.DataFrame(columns=RAW_PRICES_COLUMNS)
         placeholders = ", ".join("?" for _ in symbols)
+        clauses = [f"symbol IN ({placeholders})"]
+        params: list = list(symbols)
+        if start is not None:
+            clauses.append("knowledge_ts >= ?")
+            params.append(start)
+        if end is not None:
+            clauses.append("knowledge_ts <= ?")
+            params.append(end)
+        where = " AND ".join(clauses)
         return self._conn.execute(
             f"SELECT {', '.join(RAW_PRICES_COLUMNS)} FROM raw_prices "
-            f"WHERE symbol IN ({placeholders}) ORDER BY knowledge_ts, symbol",
-            symbols,
+            f"WHERE {where} ORDER BY knowledge_ts, symbol",
+            params,
         ).df()
 
     def query_adjustment_factors(self, symbol: str) -> pd.DataFrame:
